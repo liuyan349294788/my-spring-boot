@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.clockbone.dao.UserMapper" >
+
+    <resultMap id="BaseResultMap" type="com.clockbone.model.User" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        user_id as userId,user_name userName,id
+        from USER
+        where id = #{id}
+    </select>
+
+    <select id="getUserByParamter" parameterType="com.clockbone.model.User"
+            resultType="com.clockbone.model.User">
+        select user_id as userId ,user_name userName from USER
+        where user_name=#{userName}
+    </select>
+
+</mapper>

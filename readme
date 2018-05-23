@@ -1,0 +1,59 @@
+1、spring boot 提供2种方法来引入spring boot版号，一是继承,二是导入。
+通过<parent>继承:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.clockbone.myspringboot</groupId>
+    <artifactId>myspring-boot</artifactId>
+    <!--父模块打包类型必须为pom-->
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+    </modules>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.1.RELEASE</version>
+    </parent>
+    <!--dependencyManagement用于管理依赖版本号-->
+    <dependencyManagement>
+    </dependencyManagement>
+</project>
+```
+通过导入：
+```
+<dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.0.1.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+    </dependencyManagement>
+```
+无论是通过继承还是导入，现在pom文件都继承了spring-boot parent的依赖，所以主pom不需要再添加`spring-boot-starter`,`spring-boot-starter-test`，
+`spring-boot-starter-web`,`spring-boot-starter-jetty`等的依赖，因为如果添加，那么子模块中的pom在添加spring boot这里的时候就会报`spring-boot-starter等依赖的版本号不存在`。
+在本项目是通过导入的方式来引入spring boot 依赖版本的。
+2、spring boot 启动类
+* spring boot  启动类不能直接放到java 目录下，必须要建立一个package放到package下才行
+* 否则报错：** WARNING ** : Your ApplicationContext is unlikely to start due to a @ComponentScan of the default package.
+3、配置`SpringBootApplication`扫描的包，
+如果不配置默认只扫和 ApplicationBoot同一包下的类
+@SpringBootApplication(scanBasePackages = "com.clockbone.web")
+4、配置试图返回
+添加依赖`spring-boot-starter-thymeleaf`支持模版
+用默认的视图html静态试图
+资源文件的约定目录结构
+Maven的资源文件目录：/src/Java/resources
+spring-boot项目静态文件目录(比如css)：/src/java/resources/static
+spring-boot项目模板文件目录（比如html）：/src/java/resources/templates/index.html
+最后直接返回 "index" 就会直接到 templates文件夹下访问index.html
+5、异常拦截 CustomErrorController ,CustomExceptionHandler 处理
+6、添加测试类

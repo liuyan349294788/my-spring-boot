@@ -1,0 +1,2 @@
+# Customize the Environment or ApplicationContext Before It Starts
+org.springframework.boot.env.EnvironmentPostProcessor=com.clockbone.web.environment.EnvironmentPostProcessorCustomization
