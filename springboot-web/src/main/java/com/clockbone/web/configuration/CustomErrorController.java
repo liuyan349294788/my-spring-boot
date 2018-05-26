@@ -41,7 +41,7 @@ public class CustomErrorController extends BasicErrorController {
                 isIncludeStackTrace(request, MediaType.TEXT_HTML));
         ModelAndView modelAndView = resolveErrorView(request, response, status, model);
         //custome view
-        return(modelAndView == null ? new ModelAndView("list", model) : modelAndView);
+        return(modelAndView == null ? new ModelAndView("error/404", model) : modelAndView);
     }
 
     @Override

@@ -12,16 +12,28 @@ public class ActivitiDeployTest extends AbstratApplicationBaseBootTest {
     @Autowired
     private RepositoryService repositoryService;
 
-    //部署流程定义
+    //deploy custom
     @Test
     public void deployementProcessDefinition(){
-        Deployment deployment = repositoryService//获取流程定义和部署对象相关的Service
-                .createDeployment()//创建部署对象
-                .name("test")//声明流程的名称
-                .addClasspathResource("dig/processes/one-task-process.bpmn")//加载资源文件，一次只能加载一个文件
+        Deployment deployment = repositoryService
+                .createDeployment()//create deploy object
+                .name("test")// define deployment object name
+                .addClasspathResource("dig/processes/one-task-process.bpmn")//load source bpmn file
                 .addClasspathResource("dig/processes/one-task-process.png")//
-                .deploy();//完成部署
-        System.out.println("部署ID："+deployment.getId());//1
-        System.out.println("部署时间："+deployment.getDeploymentTime());
+                .deploy();//fish deploy
+        System.out.println("deploy ID："+deployment.getId());//1
+        System.out.println("deploy 时间："+deployment.getDeploymentTime());
+    }
+
+    @Test
+    public void deploymentFinancialTest(){
+        Deployment deployment = repositoryService
+                .createDeployment()//create deploy object
+                .name("test")// define deployment object name
+                .addClasspathResource("dig/processes/FinancialReportProcess.bpmn20.xml")//load source bpmn file
+                .addClasspathResource("dig/processes/FinancialReportProcess.bpmn20.png")//
+                .deploy();//fish deploy
+        System.out.println("deploy ID："+deployment.getId());//1
+        System.out.println("deploy 时间："+deployment.getDeploymentTime());
     }
 }

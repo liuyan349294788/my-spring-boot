@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.clockbone.dao.ActivitiMapper" >
+
+    <insert id="insert" parameterType="com.clockbone.model.Apply" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO APPLY(
+        id,name,reason,check_name
+        )values (#{id},#{name},#{reason},#{checkName})
+    </insert>
+
+    <select id="select" resultType="com.clockbone.model.Apply">
+        select id,name,reason,check_name as checkName
+        from APPLY where status='NOR'
+    </select>
+
+
+
+</mapper>
