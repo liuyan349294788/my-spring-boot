@@ -26,7 +26,7 @@ import java.util.Map;
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
-     /* *
+    /* *
      * 统一异常拦截 json和视图会被统一拦截返回统一的json错误 码
      * @param request
      * @param ex

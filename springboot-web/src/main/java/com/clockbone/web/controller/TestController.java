@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     /**
-     * 默认返回Json
-     * @return
+      默认返回Json     * @return
      */
     @RequestMapping("/testjson")
     @ResponseBody

@@ -16,8 +16,7 @@ import java.util.Map;
 
 /**
  * Created by clock on 2018/4/13.
- * 覆盖spring boot默认的异常处理类 继承BasicErrorController
- *
+ 覆盖spring boot默认的异常处理类 继承BasicErrorController
  */
 @Controller
 public class CustomErrorController extends BasicErrorController {
@@ -28,9 +27,8 @@ public class CustomErrorController extends BasicErrorController {
     }
 
     /**
-     * 浏览器直接访问不存在url或返回不存在视图会被拦截
+     浏览器直接访问不存在url或返回不存在视图会被拦截
      * 不管是 返回视图 还是 返回
-     * @param request
      * @param response
      * @return
      */

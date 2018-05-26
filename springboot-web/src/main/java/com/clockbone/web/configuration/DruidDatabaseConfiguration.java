@@ -21,7 +21,7 @@ import java.util.Properties;
 
 /**
  * Created by clock on 2018/4/16.
- * 数据库连接池配置
+ 数据库链接池配置
  */
 @Configuration
 @MapperScan(basePackages = "com.clockbone.dao",sqlSessionFactoryRef = "sqlSessionFactory")

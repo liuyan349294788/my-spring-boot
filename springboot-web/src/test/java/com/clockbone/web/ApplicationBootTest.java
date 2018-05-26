@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Created by clock on 2018/4/12.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = ApplicationBoot.class, //启动类
+@SpringBootTest(classes = ApplicationBoot.class, //
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 public class ApplicationBootTest {
