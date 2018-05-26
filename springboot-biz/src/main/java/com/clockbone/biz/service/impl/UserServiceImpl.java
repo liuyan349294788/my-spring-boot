@@ -54,10 +54,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public PageInfo<User> getUserList(User user,int pageNo,int pageSize) {
-        //设置分页参数，执行下面紧跟的一条sql会自动拦截
         PageHelper.startPage(pageNo,pageSize);
         List<User> userList = userMapper.getUserByParamter(user);
-        //放到pageInfo对象中
         PageInfo<User> userPage = new PageInfo<>(userList);
         return userPage;
     }

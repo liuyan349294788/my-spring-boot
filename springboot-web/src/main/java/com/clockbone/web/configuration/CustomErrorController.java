@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * Created by clock on 2018/4/13.
- 覆盖spring boot默认的异常处理类 继承BasicErrorController
+ override spring boot default exption hander class, extends BasicErrorController
  */
 @Controller
 public class CustomErrorController extends BasicErrorController {
@@ -27,21 +27,20 @@ public class CustomErrorController extends BasicErrorController {
     }
 
     /**
-     浏览器直接访问不存在url或返回不存在视图会被拦截
-     * 不管是 返回视图 还是 返回
+     * url is not exists or return urlpage is not exists will lanjie
      * @param response
      * @return
      */
     @Override
     public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
-        //请求的状态
+        //request status
         HttpStatus status = getStatus(request);
         response.setStatus(getStatus(request).value());
 
         Map<String, Object> model = getErrorAttributes(request,
                 isIncludeStackTrace(request, MediaType.TEXT_HTML));
         ModelAndView modelAndView = resolveErrorView(request, response, status, model);
-        //指定自定义的视图
+        //custome view
         return(modelAndView == null ? new ModelAndView("list", model) : modelAndView);
     }
 
@@ -51,7 +50,7 @@ public class CustomErrorController extends BasicErrorController {
                 isIncludeStackTrace(request, MediaType.ALL));
         HttpStatus status = getStatus(request);
 
-        //输出自定义的Json格式
+        //custome json
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("status", false);
         map.put("msg", body.get("message"));

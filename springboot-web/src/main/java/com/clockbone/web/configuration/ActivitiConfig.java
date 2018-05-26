@@ -14,7 +14,7 @@ import java.io.IOException;
 @Configuration
 public class ActivitiConfig extends AbstractProcessEngineAutoConfiguration {
 
-    //注入数据源和事务管理器
+    //autowire datasource and transactionManager\
     @Bean
     public SpringProcessEngineConfiguration springProcessEngineConfiguration(
             @Qualifier("dataSource") DataSource dataSource,

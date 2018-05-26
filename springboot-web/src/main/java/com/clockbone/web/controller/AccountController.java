@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class AccountController {
-    //返回一个正常的视图
     @RequestMapping("/list")
     public String listAsHtml(Model model) {
         // Duplicated logic
@@ -21,7 +20,7 @@ public class AccountController {
     }
 
     /**
-     * 返回视图的方法出错
+     * return the error test
      * @param model
      * @return
      */

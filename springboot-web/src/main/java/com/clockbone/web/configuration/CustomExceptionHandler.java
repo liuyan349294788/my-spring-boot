@@ -27,7 +27,7 @@ import java.util.Map;
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     /* *
-     * 统一异常拦截 json和视图会被统一拦截返回统一的json错误 码
+     * unified exception intercetion,json and view will interceted  and return the json error code
      * @param request
      * @param ex
      * @return*/
@@ -50,7 +50,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return HttpStatus.valueOf(statusCode);
     }
     /**
-     * 拦截自定义异常 CustomException  异常并返回json
+     * custome  CustomException  and return json
      * @param request
      * @param ex
      * @return*/
@@ -66,7 +66,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * CustomViewException 异常并返回视图
+     * CustomViewException exception and return view
      * @param request
      * @param ex
      * @return

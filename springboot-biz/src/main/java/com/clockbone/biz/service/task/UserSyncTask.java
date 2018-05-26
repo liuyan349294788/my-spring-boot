@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 @Slf4j
 public class UserSyncTask {
 
-    //taskAsyncPool即配置线程池的方法名，此处如果不写自定义线程池的方法名，会使用默认的线程池
+    //taskAsyncPool the name of the poll ,
     @Async("taskAsyncPool")
     public Future<String> userInfoSync(){
         try {

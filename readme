@@ -57,3 +57,7 @@ spring-boot项目模板文件目录（比如html）：/src/java/resources/templa
 最后直接返回 "index" 就会直接到 templates文件夹下访问index.html
 5、异常拦截 CustomErrorController ,CustomExceptionHandler 处理
 6、添加测试类
+7、添加activiti工作流
+//访问：
+http://localhost:8080/tasks?assignee=kermit
+
