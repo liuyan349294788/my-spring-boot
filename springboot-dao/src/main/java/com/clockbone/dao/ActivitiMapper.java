@@ -10,4 +10,6 @@ public interface ActivitiMapper {
 
     List<Apply> select();
 
+    Integer updateStatus(Long id);
+
 }

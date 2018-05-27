@@ -9,9 +9,15 @@
     </insert>
 
     <select id="select" resultType="com.clockbone.model.Apply">
-        select id,name,reason,check_name as checkName
+        select id,name,reason,check_name as checkName,bus_status busStatus
         from APPLY where status='NOR'
     </select>
+    <update id="updateStatus" parameterType="java.lang.Long">
+        update APPLY
+        set bus_status='DONE',
+        update_time=NOW()
+        where id=#{id}
+    </update>
 
 
 

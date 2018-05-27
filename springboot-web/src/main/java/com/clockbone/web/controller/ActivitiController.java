@@ -20,6 +20,12 @@ public class ActivitiController {
     @Resource
     private  ActivitiService activitiService;
 
+    /**
+     * 请假首面
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping("index")
     public String index(HttpServletRequest request, Model model){
         List<Apply> list = activitiService.select();
@@ -27,6 +33,22 @@ public class ActivitiController {
         return "activiti/index";
     }
 
+    @RequestMapping("checkindex")
+    public String checkIndex(HttpServletRequest request, Model model){
+        List<Apply> list = activitiService.select();
+        model.addAttribute("list",list);
+        return "activiti/check";
+    }
+
+
+
+    /**
+     * 请假
+     * @param request
+     * @param model
+     * @param apply
+     * @return
+     */
     @PostMapping("apply")
     @ResponseBody
     public Response apply(HttpServletRequest request,Model model,Apply apply){
