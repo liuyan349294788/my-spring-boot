@@ -1,30 +1,22 @@
 package com.clockbone.biz.service.impl;
 
 import com.clockbone.biz.service.ActivitiService;
-import com.clockbone.dao.ActivitiMapper;
-import com.clockbone.model.Apply;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class ActivitiServiceImpl implements ActivitiService {
+
     @Autowired
-    private ActivitiMapper activitiMapper;
-    @Override
-    public Apply apply(Apply apply) {
-        activitiMapper.insert(apply);
-        return apply;
+    private RuntimeService runtimeService;
+
+    @Autowired
+    private RepositoryService repositoryService;
+
+    public void getRepository(){
+
     }
 
-    @Override
-    public List<Apply> select(Apply apply) {
-        return activitiMapper.select(apply);
-    }
-
-    @Override
-    public Integer update(Long id,String busStatus) {
-        return activitiMapper.updateStatus(id,busStatus);
-    }
 }

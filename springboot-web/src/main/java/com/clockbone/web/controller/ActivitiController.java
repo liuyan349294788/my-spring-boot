@@ -1,6 +1,7 @@
 package com.clockbone.web.controller;
 
 import com.clockbone.biz.service.ActivitiService;
+import com.clockbone.biz.service.ApplyService;
 import com.clockbone.model.Apply;
 import com.clockbone.web.response.Response;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import java.util.List;
 public class ActivitiController {
 
     @Resource
-    private  ActivitiService activitiService;
+    private ApplyService applyService;
 
     /**
      * 请假首面
@@ -29,7 +30,7 @@ public class ActivitiController {
     @RequestMapping("index")
     public String index(HttpServletRequest request, Model model){
         Apply apply = new Apply();
-        List<Apply> list = activitiService.select(apply);
+        List<Apply> list = applyService.select(apply);
         model.addAttribute("list",list);
         return "activiti/index";
     }
@@ -38,7 +39,7 @@ public class ActivitiController {
     public String checkIndex(HttpServletRequest request, Model model){
         Apply apply = new Apply();
         apply.setBusStatus("WAIT");
-        List<Apply> list = activitiService.select(apply);
+        List<Apply> list = applyService.select(apply);
         model.addAttribute("list",list);
         return "activiti/check";
     }
@@ -46,7 +47,7 @@ public class ActivitiController {
     @RequestMapping("check")
     @ResponseBody
     public Response check(HttpServletRequest request, Model model,Long id,String busStatus){
-        activitiService.update(id,busStatus);
+        applyService.update(id,busStatus);
         return new Response();
     }
 
@@ -60,7 +61,7 @@ public class ActivitiController {
     @PostMapping("apply")
     @ResponseBody
     public Response apply(HttpServletRequest request,Model model,Apply apply){
-        activitiService.apply(apply);
+        applyService.apply(apply);
         return new Response(apply);
 
     }

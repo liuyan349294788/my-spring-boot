@@ -10,10 +10,5 @@ import java.util.List;
  */
 public interface ActivitiService {
 
-    Apply apply(Apply apply);
-
-    List<Apply> select(Apply apply);
-
-    Integer update(Long id,String busStatus);
 
 }
