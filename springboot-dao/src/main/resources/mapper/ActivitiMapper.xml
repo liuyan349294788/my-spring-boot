@@ -8,13 +8,17 @@
         )values (#{id},#{name},#{reason},#{checkName})
     </insert>
 
-    <select id="select" resultType="com.clockbone.model.Apply">
+    <select id="select" resultType="com.clockbone.model.Apply" parameterType="com.clockbone.model.Apply">
         select id,name,reason,check_name as checkName,bus_status busStatus
-        from APPLY where status='NOR'
+        from APPLY
+        where status='NOR'
+        <if test="param.busStatus!=null">
+            and bus_status=#{param.busStatus}
+        </if>
     </select>
-    <update id="updateStatus" parameterType="java.lang.Long">
+    <update id="updateStatus" >
         update APPLY
-        set bus_status='DONE',
+        set bus_status=#{busStatus},
         update_time=NOW()
         where id=#{id}
     </update>

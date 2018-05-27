@@ -28,19 +28,27 @@ public class ActivitiController {
      */
     @RequestMapping("index")
     public String index(HttpServletRequest request, Model model){
-        List<Apply> list = activitiService.select();
+        Apply apply = new Apply();
+        List<Apply> list = activitiService.select(apply);
         model.addAttribute("list",list);
         return "activiti/index";
     }
 
     @RequestMapping("checkindex")
     public String checkIndex(HttpServletRequest request, Model model){
-        List<Apply> list = activitiService.select();
+        Apply apply = new Apply();
+        apply.setBusStatus("WAIT");
+        List<Apply> list = activitiService.select(apply);
         model.addAttribute("list",list);
         return "activiti/check";
     }
 
-
+    @RequestMapping("check")
+    @ResponseBody
+    public Response check(HttpServletRequest request, Model model,Long id,String busStatus){
+        activitiService.update(id,busStatus);
+        return new Response();
+    }
 
     /**
      * 请假

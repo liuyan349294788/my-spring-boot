@@ -19,7 +19,12 @@ public class ActivitiServiceImpl implements ActivitiService {
     }
 
     @Override
-    public List<Apply> select() {
-        return activitiMapper.select();
+    public List<Apply> select(Apply apply) {
+        return activitiMapper.select(apply);
+    }
+
+    @Override
+    public Integer update(Long id,String busStatus) {
+        return activitiMapper.updateStatus(id,busStatus);
     }
 }
