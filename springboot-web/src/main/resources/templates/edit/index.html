@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/bootstrap-editable/libs/bootstrap/css/bootstrap.css" />
+<script src="/bootstrap-editable/libs/jquery/jquery-1.8.2.min.js"></script>
+<script src="/bootstrap-editable/libs/bootstrap/js/bootstrap.js"></script>
+
+<link rel="stylesheet" href="/bootstrap-editable/css/bootstrap-editable.css" />
+<script src="/bootstrap-editable/js/bootstrap-editable.js"></script>
+
+
+<body>
+<h1>在线编辑</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">序号</th>
+        <th scope="col">申请人</th>
+        <th scope="col">理由</th>
+        <th scope="col">审核 人</th>
+        <th scope="col">审核状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="each:${list}">
+        <th scope="row" th:text="${each.id}"></th>
+        <td th:text="${each.name}" class="editable-input" id="name" th:attr="data-pk=${each.id}">Mark</td>
+        <td th:text="${each.reason}" class="editable-input" id="reason" th:attr="data-pk=${each.id}">Otto</td>
+        <td  th:text="${each.checkName}" class="editable-input" id="checkName" th:attr="data-pk=${each.id}">@mdo</td>
+        <td th:text="${each.busStatus}"/>
+    </tr>
+    </tbody>
+</table>
+
+
+<script>
+    $('.editable-input').editable({
+        type: "text",                //编辑框的类型。支持text|textarea|select|date|checklist等
+        title: "编辑",              //编辑框的标题
+        disabled: false,             //是否禁用编辑
+        emptytext: "点击添加",        //空值的默认文本
+        mode: "popup", //编辑框的模式：支持popup和inline两种模式，默认是popup
+        validate:function(value){
+            console.log(value)
+            var id = $(this).attr("id")
+            if(id=='name'||id=='checkName'||id=='reason'){
+                if(value.length>10){
+                    return "不能超过10";
+                }
+            }
+        },
+        params:function (params) {
+            console.log(params)
+            //去空格，大写转小写
+            params.value = $.trim(params.value)
+            params.value=params.value.toLowerCase();
+            return params;
+        },
+        url:function (params) {
+            console.log(params)
+            var that = $(this);
+            return $.ajax({
+                type: "post",
+                url: "/springboot/editvalue",
+                data: {name:params.name,value:params.value,pk:params.pk},
+                dataType: 'json',
+                success: function (result) {
+                    //更新editable内存对象值，如果不加，那么再次点编辑的时候，输入框显示的值不是转小写字母的值，而是最初输入的原值
+                    that.editable('setValue',result.data.newValue);
+                    //更新页面上的显示值
+                    that.text(result.data.newValue);
+                },
+                error: function () {
+                    Ewin.alert('服务器繁忙，请稍后重试');
+                },
+                complete: function () {
+                }
+            });
+        }
+
+    });
+
+
+    $('#username').editable('markAsSaved');
+</script>
+
+</body>
+</html>
