@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="/bootstrap-editable/libs/bootstrap/css/bootstrap.css" />
-<script src="/bootstrap-editable/libs/jquery/jquery-1.8.2.min.js"></script>
-<script src="/bootstrap-editable/libs/bootstrap/js/bootstrap.js"></script>
+<!-- bootstrap -->
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="/bootstrap-editable/css/bootstrap-editable.css" />
-<script src="/bootstrap-editable/js/bootstrap-editable.js"></script>
-
+<!-- x-editable (bootstrap version) -->
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.6/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.6/bootstrap-editable/js/bootstrap-editable.min.js"></script>
 
 <body>
 <h1>在线编辑</h1>
@@ -25,9 +26,9 @@
     <tbody>
     <tr th:each="each:${list}">
         <th scope="row" th:text="${each.id}"></th>
-        <td th:text="${each.name}" class="editable-input" id="name" th:attr="data-pk=${each.id}">Mark</td>
-        <td th:text="${each.reason}" class="editable-input" id="reason" th:attr="data-pk=${each.id}">Otto</td>
-        <td  th:text="${each.checkName}" class="editable-input" id="checkName" th:attr="data-pk=${each.id}">@mdo</td>
+        <td th:text="${each.name}" class="editable-text" id="name"  th:attr="data-pk=${each.id}">Mark</td>
+        <td th:text="${each.reason}" class="editable-text" id="reason"  th:attr="data-pk=${each.id}" data-url="/springboot/editvalue">Otto</td>
+        <td  th:text="${each.checkName}" class="editable-text" id="checkName"  th:attr="data-pk=${each.id}">@mdo</td>
         <td th:text="${each.busStatus}"/>
     </tr>
     </tbody>
@@ -35,7 +36,7 @@
 
 
 <script>
-    $('.editable-input').editable({
+    $('.editable-text').editable({
         type: "text",                //编辑框的类型。支持text|textarea|select|date|checklist等
         title: "编辑",              //编辑框的标题
         disabled: false,             //是否禁用编辑
@@ -59,27 +60,32 @@
         },
         url:function (params) {
             console.log(params)
-            var that = $(this);
-            return $.ajax({
-                type: "post",
-                url: "/springboot/editvalue",
-                data: {name:params.name,value:params.value,pk:params.pk},
-                dataType: 'json',
-                success: function (result) {
-                    //更新editable内存对象值，如果不加，那么再次点编辑的时候，输入框显示的值不是转小写字母的值，而是最初输入的原值
-                    that.editable('setValue',result.data.newValue);
-                    //更新页面上的显示值
-                    that.text(result.data.newValue);
-                },
-                error: function () {
-                    Ewin.alert('服务器繁忙，请稍后重试');
-                },
-                complete: function () {
-                }
-            });
+            return updateValue(params,$(this))
         }
 
     });
+
+    function updateValue(params,ele){
+        $.ajax({
+            type: "post",
+            url: "/springboot/editvalue",
+            data: {name:params.name,value:params.value,pk:params.pk},
+            dataType: 'json',
+            success: function (result) {
+                console.log(result)
+                //更新editable内存对象值，如果不加，那么再次点编辑的时候，输入框显示的值不是转小写字母的值，而是最初输入的原值
+                ele.editable('setValue',result.newValue);
+                //更新页面上的显示值
+                ele.html(result.newValue);
+            },
+            error: function () {
+                Ewin.alert('服务器繁忙，请稍后重试');
+            },
+            complete: function () {
+            }
+        });
+
+    }
 
 
     $('#username').editable('markAsSaved');
