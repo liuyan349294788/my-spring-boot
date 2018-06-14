@@ -64,6 +64,9 @@ http://localhost:8080/tasks?assignee=kermit
 8、mybatis generator
 mvn mybatis-generator:generate
 
-9 add x-editable行内编辑组件
+9、 add x-editable行内编辑组件
 http://localhost:8080/springboot/editindex
+
+10、添加上传文件功能
+http://localhost:8080//upload
 

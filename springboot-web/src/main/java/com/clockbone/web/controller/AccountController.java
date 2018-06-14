@@ -12,6 +12,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class AccountController {
+
+
+
+    @RequestMapping("/upload")
+    public String uploadhtml(){
+        return "upload/upload";
+    }
+
+
+
     @RequestMapping("/list")
     public String listAsHtml(Model model) {
         // Duplicated logic

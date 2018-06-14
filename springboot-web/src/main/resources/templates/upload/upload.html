@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="common/common_head::commonHead('审核')"/>
+<style>
+    .preview-list li {
+        position: relative;
+        padding: 6px 10px;
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        color: #1d242c;
+        background-color: #e4f3fc;
+        margin-top: 10px;
+    }
+</style>
+<body>
+<h1>上传文件</h1>
+<form>
+
+    <div class="form-group">
+        <label for="exampleInputFile">File input</label>
+        <input type="file" id="exampleInputFile">
+        <p class="help-block">Example block-level help text here.</p>
+        <!--<ul class="preview-list">
+
+        </ul>-->
+    </div>
+
+
+
+</form>
+<div class="media">
+    <div class="media-left">
+        <!--<a href="#">
+            <img class="media-object" src="..." alt="...">
+        </a>-->
+    </div>
+    <div class="media-body">
+        <h4 class="media-heading">Media heading</h4>
+        ...
+    </div>
+</div>
+</body>
+<script>
+    $(function () {
+        var files=[]
+        $(".form-group").on('change','#exampleInputFile',function (e) {
+
+            if(!e){
+                return;
+            }
+            var $inputfile = '<input type="file" id="exampleInputFile">';
+            //替换原来的input file ,避免在删除这个文件后，重复选时不能选
+            $(this).replaceWith($inputfile)
+            var file = e.target.files; //获取图片资源
+
+            var img ="";
+            if (files.length <= 0) {
+                files.push(file);
+            } else {
+                var bool = false;
+                for (var i = 0; i < files.length; i++) {
+                    if (file[0].name === files[i][0].name) {
+                        bool = true;
+                        break;
+                    }
+                }
+                if (!bool) {
+                    files.push(file);
+                }
+            }
+            $.each(files, function (index, fileItem) {
+                if (fileItem[0].type.match('image.*')) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(fileItem[0]); // 读取文件
+                    // 渲染文件
+                    reader.onload = function (args) {
+                        img += "<li><div class='pre-con'><img height='100' width='100' class='preview' src='" + args.currentTarget.result + "'alt='preview'/><span>" + fileItem[0].name + "</span></div>" +
+                            "<div class='dele'>删除</div></li>";
+                        $(".media-left").html(img);
+                    }
+                } else {
+                    img += "<li><div class='pre-con'><img height='100' width='100' class='preview'  alt='preview'/><span>" + fileItem[0].name + "</span></div>" +
+                        "<div class='dele'>删除</div></li>";
+                }
+            });
+            console.log(img)
+            $(".media-left").html(img);
+        })
+
+
+        //删除文件
+        $('.media-left').on('click', '.dele', function (e) {
+            var fileName = $(this).parent().find('span').text();
+            for (var i = 0; i < files.length; i++) {
+                if (files[i][0].name === fileName) {
+                    files.splice(i, 1);
+                    e.currentTarget.parentNode.remove();
+                }
+            }
+        });
+    })
+
+</script>
+</html>
