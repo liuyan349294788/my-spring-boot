@@ -5,7 +5,6 @@ import com.github.pagehelper.autoconfigure.PageHelperAutoConfiguration;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;*/
 import org.activiti.spring.boot.SecurityAutoConfiguration;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -17,9 +16,14 @@ import org.springframework.context.annotation.Bean;
  *
  */
 //官网说明: 用@SpringBootApplication 注解和用 @Configuration @EnableAutoConfiguration @ComponentScan是等效的
-@SpringBootApplication(scanBasePackages = "com.clockbone"/*,
+@SpringBootApplication(scanBasePackages = {"com.clockbone","org.activiti"} /*,
         exclude={DataSourceAutoConfiguration.class}*/ ,
-        exclude = {PageHelperAutoConfiguration.class,SecurityAutoConfiguration.class}) //exclude :
+        exclude = {
+                org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class,
+                org.activiti.spring.boot.SecurityAutoConfiguration.class,
+
+                PageHelperAutoConfiguration.class,
+                }) //exclude :
 //// same as @Configuration @EnableAutoConfiguration @ComponentScan
 //@MapperScan("com.clockbone.dao")
 public class ApplicationBoot {
