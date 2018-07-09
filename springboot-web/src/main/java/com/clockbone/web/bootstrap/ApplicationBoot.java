@@ -1,15 +1,14 @@
 package com.clockbone.web.bootstrap;
 
+import com.clockbone.web.dialect.WorkFocusDialect;
 import com.github.pagehelper.autoconfigure.PageHelperAutoConfiguration;
 /*import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;*/
 import org.activiti.spring.boot.SecurityAutoConfiguration;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -50,6 +49,12 @@ public class ApplicationBoot {
         };
 
     }*/
+
+    @Bean
+    @ConditionalOnMissingBean
+    public WorkFocusDialect wlfDialect() {
+        return new WorkFocusDialect();
+    }
 
 
 }

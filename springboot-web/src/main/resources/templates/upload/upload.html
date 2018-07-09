@@ -22,13 +22,8 @@
         <label for="exampleInputFile">File input</label>
         <input type="file" id="exampleInputFile">
         <p class="help-block">Example block-level help text here.</p>
-        <!--<ul class="preview-list">
 
-        </ul>-->
     </div>
-
-
-
 </form>
 <div class="media">
     <div class="media-left">
@@ -76,12 +71,12 @@
                     reader.readAsDataURL(fileItem[0]); // 读取文件
                     // 渲染文件
                     reader.onload = function (args) {
-                        img += "<li><div class='pre-con'><img height='100' width='100' class='preview' src='" + args.currentTarget.result + "'alt='preview'/><span>" + fileItem[0].name + "</span></div>" +
+                        img += "<li><div ><img height='100' width='100' class='preview' src='" + args.currentTarget.result + "' /><span>" + fileItem[0].name + "</span></div>" +
                             "<div class='dele'>删除</div></li>";
                         $(".media-left").html(img);
                     }
                 } else {
-                    img += "<li><div class='pre-con'><img height='100' width='100' class='preview'  alt='preview'/><span>" + fileItem[0].name + "</span></div>" +
+                    img += "<li><div ><img height='100' width='100' /><span>" + fileItem[0].name + "</span></div>" +
                         "<div class='dele'>删除</div></li>";
                 }
             });
