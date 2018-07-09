@@ -9,7 +9,12 @@ import org.activiti.spring.boot.SecurityAutoConfiguration;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * Created by clock on 2018/4/12.
@@ -21,17 +26,17 @@ import org.springframework.context.annotation.Bean;
         exclude = {
                 org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class,
                 org.activiti.spring.boot.SecurityAutoConfiguration.class,
-
+                //org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration.class
                 PageHelperAutoConfiguration.class,
                 }) //exclude :
 //// same as @Configuration @EnableAutoConfiguration @ComponentScan
 //@MapperScan("com.clockbone.dao")
+//@EnableGlobalMethodSecurity(securedEnabled = false)
 public class ApplicationBoot {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(ApplicationBoot.class, args);
     }
-
 
     /**
      * The CommandLineRunner is a special kind of Spring bean that is executed when the application boots:

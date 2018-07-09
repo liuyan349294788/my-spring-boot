@@ -30,8 +30,8 @@
         <td th:text="${each.name}" class="editable-text" id="name"  th:attr="data-pk=${each.id}">Mark</td>
         <td th:text="${each.reason}" class="editable-text" id="reason"  th:attr="data-pk=${each.id}" data-url="/springboot/editvalue">Otto</td>
         <td  th:text="${each.checkName}" class="editable-text" id="checkName"  th:attr="data-pk=${each.id}">@mdo</td>
-        <td th:text="${each.busStatus}" wlf:sample1="1"/>
-        <wlf:sample3 status="${each.busStatus}"/>
+       <!-- <td th:text="${each.busStatus}" wlf:sample1="1"/>
+        <wlf:sample3 status="${each.busStatus}"/>-->
     </tr>
     </tbody>
 </table>

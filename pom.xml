@@ -187,6 +187,20 @@
                 <groupId>org.activiti</groupId>
                 <artifactId>activiti-spring-boot-starter-basic</artifactId>
                 <version>${activiti.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-actuator</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-web</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-security</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -198,18 +212,32 @@
                 <groupId>org.activiti</groupId>
                 <artifactId>activiti-rest</artifactId>
                 <version>${activiti.version}</version>
-                <!--<exclusions>
+                <exclusions>
                     <exclusion>
                         <groupId>org.springframework.security</groupId>
                         <artifactId>spring-security-web</artifactId>
                     </exclusion>
-                </exclusions>-->
+                </exclusions>
             </dependency>
 
             <dependency>
                 <groupId>org.activiti</groupId>
                 <artifactId>activiti-explorer</artifactId>
                 <version>${activiti.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.vaadin</groupId>
+                        <artifactId>vaadin</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.vaadin.addons</groupId>
+                        <artifactId>dcharts-widget</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>activiti-simple-workflow</groupId>
+                        <artifactId>org.activiti</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.activiti</groupId>

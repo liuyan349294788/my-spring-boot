@@ -13,7 +13,7 @@ public class MyRestControllerTest extends AbstratApplicationBaseBootTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    @Test
+    //@Test
     public void MyRestControllerTest(){
         log.info("test===================");
         String url = "/process";
@@ -25,7 +25,7 @@ public class MyRestControllerTest extends AbstratApplicationBaseBootTest {
 
     }
 
-    @Test
+    //@Test
     public void taskTest(){
         log.info("test===================");
         String url = "/tasks?assignee=kermit";

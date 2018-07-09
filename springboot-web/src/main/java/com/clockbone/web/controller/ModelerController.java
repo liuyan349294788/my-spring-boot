@@ -39,7 +39,7 @@ public class ModelerController {
      * @throws UnsupportedEncodingException
      */
     @GetMapping("newmodel")
-    public Object newModel() throws UnsupportedEncodingException {
+    public Object newModel(String processName,String processKey,String mark) throws UnsupportedEncodingException {
         //初始化一个空模型
         Model model = repositoryService.newModel();
 
@@ -70,7 +70,7 @@ public class ModelerController {
                 "http://b3mn.org/stencilset/bpmn2.0#");
         editorNode.put("stencilset", stencilSetNode);
         repositoryService.addModelEditorSource(id,editorNode.toString().getBytes("utf-8"));
-        return "/modeler.html?modelId="+id;
+        return "redirect:/modeler.html?modelId="+id;
     }
 
     /**
