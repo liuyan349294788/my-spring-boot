@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="common/common_head::commonHead('审核')"/>
+<body>
+<h1>审核</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">序号</th>
+        <th scope="col">名称</th>
+        <th scope="col">key</th>
+        <th scope="col">版本号</th>
+        <th scope="col">部署Id</th>
+        <th scope="col">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="each:${model}">
+        <th scope="row" th:text="${each.id}"></th>
+        <td th:text="${each.name}">Mark</td>
+        <td th:text="${each.key}">Otto</td>
+        <td  th:text="${each.version}">@mdo</td>
+        <td th:text="${each.deploymentId}"/>
+        <td>
+            <button type="button" class="btn btn-primary checkApply"
+                    th:attr="data-id=${each.id},data-name=${each.name}">部署</button>
+            <button type="button" class="btn btn-primary checkUnApply"
+                    th:attr="data-id=${each.id},data-name=${each.name}">删除</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>-->
+<script>
+
+</script>
+</body>
+</html>
