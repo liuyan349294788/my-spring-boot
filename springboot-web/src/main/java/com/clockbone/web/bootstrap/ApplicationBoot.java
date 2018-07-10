@@ -11,10 +11,21 @@ import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.ServletContextResource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
+import org.springframework.web.servlet.resource.*;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by clock on 2018/4/12.
@@ -37,6 +48,48 @@ public class ApplicationBoot {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(ApplicationBoot.class, args);
     }
+
+    /*@Bean
+    public SimpleUrlHandlerMapping simpleUrlHandlerMapping() {
+        SimpleUrlHandlerMapping simpleUrlHandlerMapping = new SimpleUrlHandlerMapping();
+        Map<String, Object> map = new LinkedHashMap<>();
+        ResourceHttpRequestHandler resourceHttpRequestHandler = new ResourceHttpRequestHandler();
+        List<Resource> locations = new ArrayList<>();
+        locations.add(new ServletContextResource(getServletContext(), "/"));
+        locations.add(new ClassPathResource("META-INF/resources"));
+        locations.add(new ClassPathResource("resources/"));
+        locations.add(new ClassPathResource("static/"));
+        locations.add(new ClassPathResource("public/"));
+        resourceHttpRequestHandler.setLocations(locations);
+        resourceHttpRequestHandler.setApplicationContext(getApplicationContext());
+
+        List<ResourceResolver> resourceResolvers = new ArrayList<>();
+        PathResourceResolver resourceResolver = new PathResourceResolver();
+        resourceResolver.setAllowedLocations(new ServletContextResource(getServletContext(), "/"), new ClassPathResource("META-INF/resources"), new ClassPathResource("resources/"), new ClassPathResource("static/"), new ClassPathResource("public/"));
+        resourceResolvers.add(resourceResolver);
+
+        resourceHttpRequestHandler.setResourceResolvers(resourceResolvers);
+        map.put("/**", resourceHttpRequestHandler);
+        simpleUrlHandlerMapping.setUrlMap(map);
+        ResourceUrlProvider resourceUrlProvider = new ResourceUrlProvider();
+        Map<String, ResourceHttpRequestHandler> handlerMap = new LinkedHashMap<>();
+        handlerMap.put("/**", resourceHttpRequestHandler);
+        resourceUrlProvider.setHandlerMap(handlerMap);
+        ResourceUrlProviderExposingInterceptor interceptor = new ResourceUrlProviderExposingInterceptor(resourceUrlProvider);
+        simpleUrlHandlerMapping.setInterceptors(new Object[]{interceptor});
+        return simpleUrlHandlerMapping;
+    }*/
+
+    /***
+     * 进行静态资源的配置
+     */
+   /* @Component
+    public class StaticResourceConfig implements WebMvcConfigurer {
+        @Override
+        public void addResourceHandlers(ResourceHandlerRegistry registry) {
+            registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        }
+    }*/
 
     /**
      * The CommandLineRunner is a special kind of Spring bean that is executed when the application boots:

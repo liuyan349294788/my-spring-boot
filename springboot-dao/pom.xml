@@ -37,6 +37,11 @@
             <groupId>com.clockbone.myspringboot</groupId>
             <artifactId>springboot-model</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
 
 
     </dependencies>
@@ -77,6 +82,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+
             </plugin>
         </plugins>
     </build>

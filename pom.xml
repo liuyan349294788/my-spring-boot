@@ -207,6 +207,12 @@
                 <groupId>org.activiti</groupId>
                 <artifactId>activiti-spring-boot-starter-actuator</artifactId>
                 <version>${activiti.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-web</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.activiti</groupId>
@@ -216,6 +222,14 @@
                     <exclusion>
                         <groupId>org.springframework.security</groupId>
                         <artifactId>spring-security-web</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-web</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-webmvc</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -292,6 +306,14 @@
             <!--spring activiti end-->
 
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>2.0.1.RELEASE</version>
+                <optional>true</optional>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 
@@ -316,6 +338,10 @@
             <!--<plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.0.1.RELEASE</version>
+                &lt;!&ndash;<configuration>
+                    <mainClass>com.clockbone.web.bootstrap.ApplicationBoot</mainClass>
+                </configuration>&ndash;&gt;
                 <executions>
                     <execution>
                         <goals>
