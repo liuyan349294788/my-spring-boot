@@ -70,3 +70,10 @@ http://localhost:8080/springboot/editindex
 10、添加上传文件功能
 http://localhost:8080//upload
 
+11 、集成官方activi工作流设计器
+流程图列表
+http://localhost:8080/models/modelist
+点击流程图,跳转到相关编辑列表
+http://localhost:8080/static/modeler.html?modelId=30001
+集成activi后,带来static静态资源无法访问问题,重写WebMvcConfigurer解决
+

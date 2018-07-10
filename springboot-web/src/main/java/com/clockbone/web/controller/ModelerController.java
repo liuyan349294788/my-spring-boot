@@ -1,5 +1,6 @@
 package com.clockbone.web.controller;
 
+import com.clockbone.model.NewModel;
 import com.clockbone.web.response.Response;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,20 +35,32 @@ public class ModelerController {
     ObjectMapper objectMapper;
 
     /**
+     * 获取所有模型
+     * @return
+     */
+    @GetMapping
+    @RequestMapping("modelist")
+    public String modelList(org.springframework.ui.Model model){
+        List<Model> models = repositoryService.createModelQuery().orderByCreateTime().desc().list();
+        model.addAttribute("models",models);
+        return "model/list";
+    }
+
+    /**
      * 新建一个空模型
      * @return
      * @throws UnsupportedEncodingException
      */
     @GetMapping("newmodel")
-    public Object newModel(String processName,String processKey,String mark) throws UnsupportedEncodingException {
+    public Object newModel(NewModel newModel) throws UnsupportedEncodingException {
         //初始化一个空模型
         Model model = repositoryService.newModel();
 
         //设置一些默认信息
-        String name = "new-process";
-        String description = "";
+        String name = newModel.getName();
+        String description = newModel.getDes();
         int revision = 1;
-        String key = "process";
+        String key = newModel.getKey();
 
         ObjectNode modelNode = objectMapper.createObjectNode();
         modelNode.put(ModelDataJsonConstants.MODEL_NAME, name);
@@ -70,23 +83,10 @@ public class ModelerController {
                 "http://b3mn.org/stencilset/bpmn2.0#");
         editorNode.put("stencilset", stencilSetNode);
         repositoryService.addModelEditorSource(id,editorNode.toString().getBytes("utf-8"));
-        return "redirect:/modeler.html?modelId="+id;
+        return "redirect:/static/modeler.html?modelId="+id;
     }
 
-    /**
-     * 获取所有模型
-     * @return
-     */
-    @GetMapping
-    @RequestMapping("modelist")
-    public String modelList(org.springframework.ui.Model model){
-        RepositoryService repositoryService = processEngine.getRepositoryService();
-        List<Model> models = repositoryService.createModelQuery().list();
-        //Map<String,List<Model>> map = new HashMap<>();
-        model.addAttribute("models",models);
-       // map.put("models",models);
-        return "model/list";
-    }
+
 
     /**
      * 删除模型

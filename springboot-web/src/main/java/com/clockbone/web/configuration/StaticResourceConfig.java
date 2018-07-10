@@ -2,15 +2,11 @@ package com.clockbone.web.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.Arrays;
+import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
 @Slf4j
+@EnableWebMvc
 public class StaticResourceConfig implements WebMvcConfigurer {
 
     @Override
@@ -18,10 +14,10 @@ public class StaticResourceConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
 
-    @Override
+    /*@Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
-    }
+    }*/
 
 
 }

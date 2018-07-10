@@ -1,40 +1,82 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:include="common/common_head::commonHead('审核')"/>
+<head th:include="common/common_head::commonHead('流程图')"/>
 <body>
-<h1>审核</h1>
+<h1>流程图</h1>
+<button type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#exampleModal" data-whatever="@申请">新建</button>
 <table class="table">
     <thead>
     <tr>
-        <th scope="col">序号</th>
-        <th scope="col">名称</th>
-        <th scope="col">key</th>
-        <th scope="col">版本号</th>
-        <th scope="col">部署Id</th>
-        <th scope="col">操作</th>
+        <th>ID</th>
+        <th>模型名称</th>
+        <th>key</th>
+        <th>版本</th>
+        <th>部署ID</th>
+        <th>创建时间</th>
+        <th>最后更新时间</th>
+        <th>操作</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="each:${model}">
-        <th scope="row" th:text="${each.id}"></th>
-        <td th:text="${each.name}">Mark</td>
-        <td th:text="${each.key}">Otto</td>
-        <td  th:text="${each.version}">@mdo</td>
-        <td th:text="${each.deploymentId}"/>
+    <tr th:each="data : ${models}">
+        <td th:text="${data.id}">LeaveBill:1:4</td>
         <td>
-            <button type="button" class="btn btn-primary checkApply"
-                    th:attr="data-id=${each.id},data-name=${each.name}">部署</button>
-            <button type="button" class="btn btn-primary checkUnApply"
-                    th:attr="data-id=${each.id},data-name=${each.name}">删除</button>
+            <a th:href="@{/static/modeler.html(modelId=${data.id})}" class="font-blue" th:text="${data.name}">流程名称</a>
+        </td>
+        <td th:text="${data.key}">1</td>
+        <td th:text="${data.version}"></td>
+        <td th:text="${data.deploymentId}"></td>
+        <td th:text="${data.createTime}">
+            2018-02-25 17:28:35
+        </td>
+        <td th:text="${data.lastUpdateTime}">
+            2018-02-25 17:28:35
+        </td>
+        <td>
+            <a href="javascript:;" th:attrappend="objId=${data.id}" class="font-blue deployBtn">发布流程</a>&nbsp;&nbsp;
+            <a th:href="@{/crm/model/export/{modelId}(modelId=${data.id})}" class="font-blue">导出</a>&nbsp;&nbsp;
+            <a href="javascript:;" th:attrappend="objId=${data.id}" class="font-blue delBtn">删除</a>
         </td>
     </tr>
     </tbody>
 </table>
 
-<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">新建模型</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form  id="myForm" action="/model/newmodel" method="post">
+                <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">流程名称:</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="key" class="col-form-label">流程key:</label>
+                            <input class="form-control" id="key" name="key"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="des" class="col-form-label">描述:</label>
+                            <input class="form-control" id="des" name="des"></input>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary save">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
 
 </script>
