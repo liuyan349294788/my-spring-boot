@@ -52,7 +52,7 @@ public class ModelSaveRestResource implements ModelDataJsonConstants {
   public void saveModel(@PathVariable String modelId, @RequestParam("name") String name,
                         @RequestParam("json_xml") String json_xml,
                         @RequestParam("svg_xml") String svg_xml,
-                        @RequestParam("description") String description) {
+                        @RequestParam("description") String description) {//对接收参数修改
     try {
       
       Model model = repositoryService.getModel(modelId);

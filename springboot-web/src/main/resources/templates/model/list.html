@@ -22,7 +22,7 @@
     <tr th:each="data : ${models}">
         <td th:text="${data.id}">LeaveBill:1:4</td>
         <td>
-            <a th:href="@{/static/modeler.html(modelId=${data.id})}" class="font-blue" th:text="${data.name}">流程名称</a>
+            <a th:href="@{/static/modeler.html(modelId=${data.id})}" target="_blank" class="font-blue" th:text="${data.name}">流程名称</a>
         </td>
         <td th:text="${data.key}">1</td>
         <td th:text="${data.version}"></td>
@@ -34,9 +34,9 @@
             2018-02-25 17:28:35
         </td>
         <td>
-            <a href="javascript:;" th:attrappend="objId=${data.id}" class="font-blue deployBtn">发布流程</a>&nbsp;&nbsp;
-            <a th:href="@{/crm/model/export/{modelId}(modelId=${data.id})}" class="font-blue">导出</a>&nbsp;&nbsp;
-            <a href="javascript:;" th:attrappend="objId=${data.id}" class="font-blue delBtn">删除</a>
+            <a href="javascript:;" th:attr="id=${data.id}" class="font-blue deploymentBtn">发布流程</a>&nbsp;&nbsp;
+            <a th:href="@{/models/export/{modelId}(modelId=${data.id})}" class="font-blue">导出</a>&nbsp;&nbsp;
+            <a href="javascript:;" th:attr="id=${data.id}" class="font-blue deleteBtn">删除</a>
         </td>
     </tr>
     </tbody>
@@ -78,6 +78,56 @@
 </div>
 
 <script>
+    $('.deleteBtn').on('click', function () {
+        var id = $(this).attr('id');
+        Ewin.confirm({message: "确认要删除吗？"}).on(function (e) {
+            if (!e) {
+                return;
+            }
+            $.ajax({
+                url: '/models/del/' + id,
+                type: 'delete',
+                data: {},
+                success: function (data) {
+                    if (data.code == 200) {
+                        Ewin.alert();
+                        window.location.reload();
+                    } else {
+                        Ewin.alert("操作失败");
+                    }
+                },
+                error: function () {
+                    console.log("error");
+                }
+            });
+        });
+    });
+
+    // 发布流程
+    $('.deploymentBtn').on('click', function () {
+        var id = $(this).attr('id');
+        Ewin.confirm({message: "确认要发布吗？"}).on(function (e) {
+            if (!e) {
+                return;
+            }
+            $.ajax({
+                url: '/models/' + id + '/deployment',
+                type: 'POST',
+                data: {},
+                success: function (data) {
+                    if (data.code == 200) {
+                        Ewin.alert("发布成功");
+                        window.location.reload();
+                    } else {
+                        Ewin.alert(data.errorMsg);
+                    }
+                },
+                error: function () {
+                    console.log("error");
+                }
+            });
+        });
+    });
 
 </script>
 </body>
