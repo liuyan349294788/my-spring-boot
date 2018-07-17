@@ -324,7 +324,7 @@
     <build>
         <finalName>myspring-boot</finalName>
 
-        <resources>
+        <!--<resources>
             <resource>
                 <directory>${project.basedir}/src/main/java/META-INF</directory>
                 <targetPath>META-INF/</targetPath>
@@ -332,7 +332,7 @@
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
-        </resources>
+        </resources>-->
 
         <plugins>
             <!--<plugin>

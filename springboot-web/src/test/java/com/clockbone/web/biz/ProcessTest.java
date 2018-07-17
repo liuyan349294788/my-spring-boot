@@ -51,6 +51,8 @@ public class ProcessTest extends AbstratApplicationBaseBootTest {
         TblBusinessApply tblBusinessApply = new TblBusinessApply();
         tblBusinessApply.setProcessId("test");
         tblBusinessApply.setProcessName("name");
+        tblBusinessApply.setBusStatus(BusinessKey.ING.getKey());
+        tblBusinessApply.setBusinessId(tblBusiness.getId());
         tblBusinessApplyMapper.insert(tblBusinessApply);
     }
 
@@ -74,6 +76,8 @@ public class ProcessTest extends AbstratApplicationBaseBootTest {
         TblBusinessApply tblBusinessApply = new TblBusinessApply();
         tblBusinessApply.setProcessId(processId);
         tblBusinessApply.setProcessName(processDefinition.getName());
+        tblBusinessApply.setBusStatus(BusinessKey.ING.getKey());
+        tblBusinessApply.setBusinessId(tblBusiness.getId());
         tblBusinessApplyMapper.insert(tblBusinessApply);
 
 

@@ -72,8 +72,8 @@
   </update>
 
   <insert id="insert" parameterType="com.clockbone.model.TblBusinessApply" useGeneratedKeys="true">
-    insert into tbl_business (process_id,process_name,create_time, update_time)
-    values (#{processId},#{processName},now(),now())
+    insert into tbl_business_apply (process_id,process_name,create_time, update_time,bus_status,business_id)
+    values (#{processId},#{processName},now(),now(),#{busStatus},#{businessId})
   </insert>
 
 </mapper>
