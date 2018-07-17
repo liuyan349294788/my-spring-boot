@@ -1,0 +1,14 @@
+1、mybatis generator
+mvn mybatis-generator:generate
+
+打包时,需要注释 父pom文件中的下面内容
+
+<!--<resources>
+            <resource>
+                <directory>${project.basedir}/src/main/java/META-INF</directory>
+                <targetPath>META-INF/</targetPath>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>-->

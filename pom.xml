@@ -239,10 +239,10 @@
                 <artifactId>activiti-explorer</artifactId>
                 <version>${activiti.version}</version>
                 <exclusions>
-                    <exclusion>
+                    <!--<exclusion>
                         <groupId>com.vaadin</groupId>
                         <artifactId>vaadin</artifactId>
-                    </exclusion>
+                    </exclusion>-->
                     <exclusion>
                         <groupId>org.vaadin.addons</groupId>
                         <artifactId>dcharts-widget</artifactId>

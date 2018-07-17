@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <!-- 引入配置文件 -->
-    <properties resource="mybatis-generator/mybatisGeneratorinit.properties"/>
+    <!--<properties resource="mybatis-generator/mybatisGeneratorinit.properties"/>-->
     <!--classPathEntry:数据库的JDBC驱动,换成你自己的驱动位置 可选 -->
-    <!--<classPathEntry location="D:\generator_mybatis\mysql-connector-java-5.1.24-bin.jar" /> -->
+    <classPathEntry location="D:\myFile\repository\mysql\mysql-connector-java\8.0.11\mysql-connector-java-8.0.11.jar" />
 
     <!-- 一个数据库一个context -->
     <!--defaultModelType="flat" 大数据字段，不分表 -->
@@ -20,12 +20,12 @@
 
         <!-- 注释 -->
         <commentGenerator >
-            <property name="suppressAllComments" value="false"/><!-- 是否取消注释 -->
-            <property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳-->
+            <property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
+            <property name="suppressDate" value="false" /> <!-- 是否生成注释代时间戳-->
         </commentGenerator>
 
         <!-- jdbc连接 -->
-        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3309/test" userId="root" password="123456" />
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3309/test?serverTimezone=GMT" userId="root" password="123456" />
         <!-- 类型转换 -->
         <javaTypeResolver>
             <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
@@ -33,19 +33,22 @@
         </javaTypeResolver>
 
         <!-- 生成实体类地址 -->
-        <javaModelGenerator targetPackage="com.clockbone.dao" targetProject="${project}" >
+        <javaModelGenerator targetPackage="com.clockbone.model" targetProject="src/main/java" >
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!-- 生成mapxml文件 -->
-        <sqlMapGenerator targetPackage="mappers" targetProject="${resources}" >
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources" >
             <property name="enableSubPackages" value="false" />
         </sqlMapGenerator>
         <!-- 生成mapxml对应client，也就是接口dao -->
-        <javaClientGenerator targetPackage="com.quiterr.dao" targetProject="${project}" type="XMLMAPPER" >
+        <javaClientGenerator targetPackage="com.clockbone.dao" targetProject="src/main/java" type="XMLMAPPER" >
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
-        <table tableName="devices" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
+        <table tableName="tbl_business_apply"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <property name="useActualColumnNames" value="false" />
             <generatedKey column="id" sqlStatement="Mysql" identity="true" />
         </table>
