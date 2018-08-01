@@ -1,16 +1,16 @@
 package com.clockbone.web.biz;
 
+import com.clockbone.biz.service.ApplyService;
+import com.clockbone.biz.service.common.BusStatus;
 import com.clockbone.biz.service.common.BusinessKey;
 import com.clockbone.dao.TblBusinessApplyMapper;
 import com.clockbone.dao.TblBusinessMapper;
+import com.clockbone.model.Apply;
 import com.clockbone.model.TblBusiness;
 import com.clockbone.model.TblBusinessApply;
 import com.clockbone.web.AbstratApplicationBaseBootTest;
 import lombok.extern.slf4j.Slf4j;
-import org.activiti.engine.HistoryService;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
+import org.activiti.engine.*;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.lang3.RandomUtils;
@@ -42,42 +42,32 @@ public class ProcessTest extends AbstratApplicationBaseBootTest {
     @Autowired
     private TblBusinessApplyMapper tblBusinessApplyMapper;
 
+    @Autowired
+    private IdentityService identityService;
+
+    @Autowired
+    private ApplyService applyService;
+
 
     @Test
     public void tblTest(){
         TblBusiness tblBusiness = new TblBusiness();
+        tblBusiness.setUserId(3120L);
         tblBusinessMapper.insert(tblBusiness);
 
         TblBusinessApply tblBusinessApply = new TblBusinessApply();
         tblBusinessApply.setProcessId("test");
         tblBusinessApply.setProcessName("name");
+        tblBusinessApply.setUserId(3120L);
+        tblBusinessApply.setBusStatus(BusStatus.WAIT.getKey());
+        tblBusinessApply.setBusinessId(tblBusiness.getId());
         tblBusinessApplyMapper.insert(tblBusinessApply);
     }
 
 
     @Test
     public void startProcess(){
-        TblBusiness tblBusiness = new TblBusiness();
-        tblBusinessMapper.insert(tblBusiness);
-
-        String key = BusinessKey.LEAVE.getKey();
-        String businessKey = tblBusiness.getId()+"";
-        Map<String,Object> variables = new HashMap<>();
-        variables.put("applyUserId",3120);
-        variables.put("objId",businessKey + "_3120");
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(key,businessKey,variables);
-        String processId = processInstance.getProcessDefinitionId();
-        String processDefineId = processInstance.getProcessDefinitionId();
-        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefineId).singleResult();
-
-        //插入流程审请表
-        TblBusinessApply tblBusinessApply = new TblBusinessApply();
-        tblBusinessApply.setProcessId(processId);
-        tblBusinessApply.setProcessName(processDefinition.getName());
-        tblBusinessApplyMapper.insert(tblBusinessApply);
-
-
-
+        applyService.apply(new Apply());
 
     }
 }

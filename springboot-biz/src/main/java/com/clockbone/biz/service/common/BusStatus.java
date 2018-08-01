@@ -5,11 +5,11 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum BusinessKey {
+public enum BusStatus {
 
-    LEAVE("leave", "离职"),
-    APPLY("apply", "请假"),
-    BAOXIAO("baoxiao", "报销");
+    WAIT("WATI", "等待审核"),
+    DONE("DONE", "完成"),
+    REJECT("REJECT", "拒绝");
     private String key;
     private String name;
 

@@ -56,8 +56,8 @@
 
             </plugin>
 
-
-            <plugin>
+                   <!--自动生成xml，要用时再放开-->
+            <!--<plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.3.5</version>
@@ -86,7 +86,7 @@
                         <version>1.3.5</version>
                     </dependency>
                 </dependencies>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 

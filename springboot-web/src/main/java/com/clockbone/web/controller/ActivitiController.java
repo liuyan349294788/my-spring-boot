@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("activiti/")
@@ -51,8 +52,9 @@ public class ActivitiController {
         return new Response();
     }
 
+    //-----------------------------------流程相关方法开始------------------------------------------------------------------
     /**
-     * 请假
+     * 请假，发起申请流程
      * @param request
      * @param model
      * @param apply
@@ -64,5 +66,18 @@ public class ActivitiController {
         applyService.apply(apply);
         return new Response(apply);
 
+    }
+
+    //查看流程列表，我发起的申请，我待办的申请
+    public Response myProcess(HttpServletRequest request,String type){
+        //我发起的
+        if(Objects.equals(type,"0")){
+
+        }else{
+            //我待办的
+
+        }
+
+        return new Response();
     }
 }

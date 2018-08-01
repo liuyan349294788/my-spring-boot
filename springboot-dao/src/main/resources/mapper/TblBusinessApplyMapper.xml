@@ -72,8 +72,23 @@
   </update>
 
   <insert id="insert" parameterType="com.clockbone.model.TblBusinessApply" useGeneratedKeys="true">
-    insert into tbl_business (process_id,process_name,create_time, update_time)
-    values (#{processId},#{processName},now(),now())
+    insert into tbl_business_apply (process_id,process_name,create_time, update_time,business_id,bus_status)
+    values (#{processId},#{processName},now(),now(),#{businessId},#{busStatus})
   </insert>
+
+  <select id="selectApplyList" parameterType="com.clockbone.model.TblBusinessApply">
+        select
+        DISTINCT (apply.id),
+        apply.process_id,
+        apply.process_name,
+        apply.business_id,
+        apply.bus_status,
+        apply.create_user_id,
+        apply.create_time,
+        apply.update_time
+        from tbl_business_apply as apply
+        left join ACT_HI_IDENTITYLINK as identify on apply.process_id=identify.proc_inst_id_
+        where apply.create_user_id=#{param.createUserId}
+  </select>
 
 </mapper>

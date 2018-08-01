@@ -17,5 +17,11 @@ public class TblBusinessApply {
 
     private String processName;
 
+    private Long businessId;
+
+    private String busStatus;
+
+    private Long createUserId;
+
 
 }
