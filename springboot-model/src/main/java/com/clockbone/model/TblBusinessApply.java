@@ -23,5 +23,4 @@ public class TblBusinessApply {
 
     private Long createUserId;
 
-
 }

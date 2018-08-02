@@ -13,9 +13,7 @@ public class TblBusiness implements Serializable {
 
     private Date updateTime;
 
-    //…Í«Î»À
     private Long userId;
-    //‘≠“Ú
     private String reason;
 
 

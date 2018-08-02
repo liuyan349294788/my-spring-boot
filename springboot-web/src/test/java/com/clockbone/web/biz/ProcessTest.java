@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.*;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,7 @@ public class ProcessTest extends AbstratApplicationBaseBootTest {
         TblBusinessApply tblBusinessApply = new TblBusinessApply();
         tblBusinessApply.setProcessId("test");
         tblBusinessApply.setProcessName("name");
-        tblBusinessApply.setUserId(3120L);
+        tblBusinessApply.setCreateUserId(3120L);
         tblBusinessApply.setBusStatus(BusStatus.WAIT.getKey());
         tblBusinessApply.setBusinessId(tblBusiness.getId());
         tblBusinessApplyMapper.insert(tblBusinessApply);
@@ -69,5 +70,15 @@ public class ProcessTest extends AbstratApplicationBaseBootTest {
     public void startProcess(){
         applyService.apply(new Apply());
 
+    }
+
+    @Test
+    public void taskTest(){
+        String processId = "50001";
+        Task task = taskService.createTaskQuery().processInstanceId(processId).singleResult();
+        log.info("task:{}",task.getId());
+        log.info("task:{}",task.getName());
+        log.info("task:{}",task.getAssignee());
+        //log.info("task:{}",task.)
     }
 }

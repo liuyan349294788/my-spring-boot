@@ -1,6 +1,7 @@
 package com.clockbone.biz.service;
 import com.clockbone.model.Apply;
 import com.clockbone.model.TblBusinessApply;
+import com.clockbone.model.TblBusinessApplyRes;
 
 import java.util.List;
 
@@ -20,6 +21,6 @@ public interface ApplyService {
      * @param tblBusinessApply
      * @return
      */
-    List<TblBusinessApply> selectApplyList(TblBusinessApply tblBusinessApply);
+    List<TblBusinessApplyRes> selectApplyList(TblBusinessApply tblBusinessApply);
 
 }

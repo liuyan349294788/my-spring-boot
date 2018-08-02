@@ -1,6 +1,7 @@
 package com.clockbone.dao;
 
 import com.clockbone.model.TblBusinessApply;
+import com.clockbone.model.TblTaskAssigne;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface TblBusinessApplyMapper {
     int updateByPrimaryKey(TblBusinessApply record);
 
     List<TblBusinessApply> selectApplyList(@Param("param") TblBusinessApply param);
+
+    List<TblTaskAssigne> selectTaskAssigne(String taskId);
 }

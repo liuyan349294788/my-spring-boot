@@ -40,7 +40,7 @@ public class CustomErrorController extends BasicErrorController {
         Map<String, Object> model = getErrorAttributes(request,
                 isIncludeStackTrace(request, MediaType.TEXT_HTML));
         ModelAndView modelAndView = resolveErrorView(request, response, status, model);
-        //custome view
+        //custome service
         return(modelAndView == null ? new ModelAndView("error/404", model) : modelAndView);
     }
 

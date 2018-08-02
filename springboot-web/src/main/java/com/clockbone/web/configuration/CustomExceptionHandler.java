@@ -27,7 +27,7 @@ import java.util.Map;
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     /* *
-     * unified exception intercetion,json and view will interceted  and return the json error code
+     * unified exception intercetion,json and service will interceted  and return the json error code
      * @param request
      * @param ex
      * @return*/
@@ -66,7 +66,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * CustomViewException exception and return view
+     * CustomViewException exception and return service
      * @param request
      * @param ex
      * @return

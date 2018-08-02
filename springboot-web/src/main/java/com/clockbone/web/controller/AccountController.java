@@ -26,7 +26,7 @@ public class AccountController {
     public String listAsHtml(Model model) {
         // Duplicated logic
         model.addAttribute("test");
-        return "list";         // View determined by view-resolution
+        return "list";         // View determined by service-resolution
     }
 
     /**
@@ -49,7 +49,7 @@ public class AccountController {
     public String indexHtml(Model model) {
         // Duplicated logic
         model.addAttribute("test");
-        return "index";         // View determined by view-resolution
+        return "index";         // View determined by service-resolution
     }
 
 
@@ -58,7 +58,7 @@ public class AccountController {
     public String response(Model model) {
         // Duplicated logic
         model.addAttribute("test");
-        return "indexjson";         // View determined by view-resolution
+        return "indexjson";         // View determined by service-resolution
     }
 
     @RequestMapping("/errorResTest")

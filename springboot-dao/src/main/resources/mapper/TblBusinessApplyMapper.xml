@@ -76,19 +76,25 @@
     values (#{processId},#{processName},now(),now(),#{businessId},#{busStatus})
   </insert>
 
-  <select id="selectApplyList" parameterType="com.clockbone.model.TblBusinessApply">
+  <select id="selectApplyList" parameterType="com.clockbone.model.TblBusinessApply" resultType="com.clockbone.model.TblBusinessApply">
         select
-        DISTINCT (apply.id),
-        apply.process_id,
-        apply.process_name,
-        apply.business_id,
-        apply.bus_status,
-        apply.create_user_id,
-        apply.create_time,
-        apply.update_time
+        DISTINCT (apply.id) as id,
+        apply.process_id as processId,
+        apply.process_name as processName,
+        apply.business_id as businessId,
+        apply.bus_status as busStatus,
+        apply.create_user_id as createUserId,
+        apply.create_time as createTime,
+        apply.update_time as updateTime
         from tbl_business_apply as apply
         left join ACT_HI_IDENTITYLINK as identify on apply.process_id=identify.proc_inst_id_
         where apply.create_user_id=#{param.createUserId}
+  </select>
+
+  <select id="selectTaskAssigne" resultType="com.clockbone.model.TblTaskAssigne">
+        SELECT ident.GROUP_ID_ AS groupId,ident.USER_ID_ AS userId,ident.TASK_ID_ AS taskId
+        FROM ACT_RU_IDENTITYLINK AS ident
+        WHERE ident.TASK_ID_ = #{taskId}
   </select>
 
 </mapper>

@@ -3,11 +3,15 @@ package com.clockbone.web.controller;
 import com.clockbone.biz.service.ActivitiService;
 import com.clockbone.biz.service.ApplyService;
 import com.clockbone.model.Apply;
+import com.clockbone.model.TblBusinessApply;
+import com.clockbone.model.TblBusinessApplyRes;
 import com.clockbone.web.response.Response;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -69,15 +73,18 @@ public class ActivitiController {
     }
 
     //查看流程列表，我发起的申请，我待办的申请
-    public Response myProcess(HttpServletRequest request,String type){
+    @RequestMapping("myProcess")
+    public String myProcess(HttpServletRequest request,@RequestParam(defaultValue = "0") String type,Model model){
         //我发起的
         if(Objects.equals(type,"0")){
-
+            TblBusinessApply t = new TblBusinessApply();
+            t.setCreateUserId(0L);
+            List<TblBusinessApplyRes> list = applyService.selectApplyList(t);
+            model.addAttribute("list",list);
         }else{
             //我待办的
 
         }
-
-        return new Response();
+        return "activiti/processlist";
     }
 }
