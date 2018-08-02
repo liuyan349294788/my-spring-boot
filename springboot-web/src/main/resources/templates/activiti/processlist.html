@@ -28,7 +28,11 @@
         <td th:text="${each.processName}">Mark</td>
         <td th:text="${each.busStatus}">Otto</td>
         <td ><a th:text="${each.currentNode}" class="diagram-show" th:attr="processDefinitionId=${each.defineProcessId},processInstanceId=${each.processId}"
-               ></a></td>
+               >
+        </a><a th:text="${each.currentNode}+'diagram-viewer'"
+               th:href="@{/static/diagram-viewer/index.html(processDefinitionId=${each.defineProcessId},processInstanceId=${each.processId})}"
+                th:attr="processDefinitionId=${each.defineProcessId},processInstanceId=${each.processId}"
+        ></a></td>
         <td  th:text="${each.currentHandle}">@mdo</td>
     </tr>
     </tbody>

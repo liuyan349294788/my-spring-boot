@@ -6,7 +6,12 @@ import com.clockbone.model.Apply;
 import com.clockbone.model.TblBusinessApply;
 import com.clockbone.model.TblBusinessApplyRes;
 import com.clockbone.web.response.Response;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Controller
@@ -25,6 +33,14 @@ public class ActivitiController {
 
     @Resource
     private ApplyService applyService;
+
+    @Autowired
+    private RuntimeService runtimeService;
+
+    @Autowired
+    private RepositoryService repositoryService;
+
+    private ProcessService processService;
 
     /**
      * 请假首面
@@ -87,4 +103,31 @@ public class ActivitiController {
         }
         return "activiti/processlist";
     }
+
+    /**
+     */
+    @RequestMapping(value = "/resource")
+    public void loadByProcessInstance(@RequestParam("type") String resourceType,
+                                      @RequestParam("processInstanceId") String processInstanceId,
+                                      HttpServletResponse response)
+            throws Exception {
+        InputStream resourceAsStream = null;
+        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(processInstance.getProcessDefinitionId())
+                .singleResult();
+
+        String resourceName = "";
+        if (resourceType.equals("image")) {
+            resourceName = processDefinition.getDiagramResourceName();
+        } else if (resourceType.equals("xml")) {
+            resourceName = processDefinition.getResourceName();
+        }
+        resourceAsStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), resourceName);
+        byte[] b = new byte[1024];
+        int len = -1;
+        while ((len = resourceAsStream.read(b, 0, 1024)) != -1) {
+            response.getOutputStream().write(b, 0, len);
+        }
+    }
+
 }
