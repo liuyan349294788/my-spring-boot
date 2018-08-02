@@ -27,16 +27,37 @@
         <th scope="row" th:text="${each.processId}"></th>
         <td th:text="${each.processName}">Mark</td>
         <td th:text="${each.busStatus}">Otto</td>
-        <td ><a th:text="${each.currentNode}"
-                th:href="@{/static/diagram-viewer/index.html(processDefinitionId=${each.defineProcessId},processInstanceId=${each.processId})}"></a></td>
+        <td ><a th:text="${each.currentNode}" class="diagram-show" th:attr="processDefinitionId=${each.defineProcessId},processInstanceId=${each.processId}"
+               ></a></td>
         <td  th:text="${each.currentHandle}">@mdo</td>
     </tr>
     </tbody>
 </table>
 
-
+<script src="/static/js/jquery-ui-1.9.2.min.js"></script>
 <script>
     $(function () {
+        // th:href="@{/static/diagram-viewer/index.html(processDefinitionId=${each.defineProcessId},processInstanceId=${each.processId})}"
+        $(".diagram-show").on("click",function(){
+            var pid = $(this).attr("processInstanceId")
+            var fid = $(this).attr("processDefinitionId")
+            //$('#workflowTraceDialog').dialog('close');
+
+            var url = '/static/diagram-viewer/index.html?processDefinitionId=' + fid + '&processInstanceId=' + pid;
+
+            $('<div/>', {
+                'id': 'imgDialog',
+                title: '此对话框显示的图片是由引擎自动生成的，并用红色标记当前的节点',
+                html: '<div><img src="' + url + '" width="100%" height="' + document.documentElement.clientHeight * 0.90 + '" /></div>'
+            }).appendTo('body')/*.dialog({
+                modal: true,
+                resizable: false,
+                dragable: false,
+                width: document.documentElement.clientWidth * 0.95,
+                height: document.documentElement.clientHeight * 0.95
+            })*/;
+
+        })
 
     })
 </script>
