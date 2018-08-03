@@ -40,7 +40,6 @@ public class ActivitiController {
     @Autowired
     private RepositoryService repositoryService;
 
-    private ProcessService processService;
 
     /**
      * 请假首面
