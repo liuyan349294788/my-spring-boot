@@ -23,13 +23,16 @@
     </thead>
     <tbody>
     <tr th:each="each:${list}">
-        <th scope="row" ></th>
+        <th scope="row" >
+            <span th:if="${each.busStatus=='WAIT'}" class="agree" th:attr="taskId=${each.taskId}">同意</span>
+            <span th:if="${each.busStatus=='WAIT'}">拒绝</span><span></span>
+        </th>
         <th scope="row" th:text="${each.processId}"></th>
         <td th:text="${each.processName}">Mark</td>
         <td th:text="${each.busStatus}">Otto</td>
-        <td ><a th:text="${each.currentNode}" class="diagram-show" th:attr="processDefinitionId=${each.defineProcessId},processInstanceId=${each.processId}"
+        <td ><a th:if="${each.busStatus=='WAIT'}" th:text="${each.currentNode}" class="diagram-show" th:attr="processDefinitionId=${each.defineProcessId},processInstanceId=${each.processId}"
                >
-        </a><a th:text="${each.currentNode}+'diagram-viewer'"
+        </a><a th:if="${each.busStatus=='WAIT'}" th:text="${each.currentNode}+'diagram-viewer'" target="_blank"
                th:href="@{/static/diagram-viewer/index.html(processDefinitionId=${each.defineProcessId},processInstanceId=${each.processId})}"
                 th:attr="processDefinitionId=${each.defineProcessId},processInstanceId=${each.processId}"
         ></a></td>
@@ -41,6 +44,22 @@
 <script src="/static/js/jquery-ui-1.9.2.min.js"></script>
 <script>
     $(function () {
+        $(".agree").on("click",function(){
+            alert("agree")
+            var data={};
+            data.taskId=$(this).attr("taskId")
+            data.message=1
+            console.log(data)
+            $.post('/activiti/doprocess', data, function (result) {
+                if (result.code === 200) {
+                    alert("审批通过")
+                    window.location.reload();
+                } else {
+                    Ewin.alert(result.message);
+                }
+            }, 'json');
+
+        })
         // th:href="@{/static/diagram-viewer/index.html(processDefinitionId=${each.defineProcessId},processInstanceId=${each.processId})}"
         $(".diagram-show").on("click",function(){
             var pid = $(this).attr("processInstanceId")

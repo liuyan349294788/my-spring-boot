@@ -3,6 +3,7 @@ package com.clockbone.web.controller;
 import com.clockbone.biz.service.ActivitiService;
 import com.clockbone.biz.service.ApplyService;
 import com.clockbone.model.Apply;
+import com.clockbone.model.DoProcess;
 import com.clockbone.model.TblBusinessApply;
 import com.clockbone.model.TblBusinessApplyRes;
 import com.clockbone.web.response.Response;
@@ -101,6 +102,14 @@ public class ActivitiController {
 
         }
         return "activiti/processlist";
+    }
+
+    @PostMapping("doprocess")
+    @ResponseBody
+    public Response doprocess(DoProcess doProcess){
+        applyService.doProcess(doProcess.getTaskId(),doProcess.getMessage());
+        return new Response();
+
     }
 
     /**

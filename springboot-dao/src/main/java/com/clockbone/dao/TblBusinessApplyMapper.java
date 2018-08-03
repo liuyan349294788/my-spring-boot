@@ -22,4 +22,6 @@ public interface TblBusinessApplyMapper {
     List<TblBusinessApply> selectApplyList(@Param("param") TblBusinessApply param);
 
     List<TblTaskAssigne> selectTaskAssigne(String taskId);
+
+    TblBusinessApply selectByProcessId(String processId);
 }

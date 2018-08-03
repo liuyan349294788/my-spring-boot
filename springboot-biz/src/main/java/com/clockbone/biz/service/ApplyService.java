@@ -4,6 +4,7 @@ import com.clockbone.model.TblBusinessApply;
 import com.clockbone.model.TblBusinessApplyRes;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by clock on 2018/4/16.
@@ -22,5 +23,10 @@ public interface ApplyService {
      * @return
      */
     List<TblBusinessApplyRes> selectApplyList(TblBusinessApply tblBusinessApply);
+
+    /**
+     * shen pi liucheng shenqing
+     */
+    void doProcess(String taskId,String message);
 
 }

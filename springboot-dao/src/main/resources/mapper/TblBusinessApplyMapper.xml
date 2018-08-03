@@ -54,6 +54,9 @@
       <if test="processId != null">
         process_id = #{processId,jdbcType=VARCHAR},
       </if>
+      <if test="busStatus != null">
+        bus_status = #{busStatus,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -95,6 +98,13 @@
         SELECT ident.GROUP_ID_ AS groupId,ident.USER_ID_ AS userId,ident.TASK_ID_ AS taskId
         FROM ACT_RU_IDENTITYLINK AS ident
         WHERE ident.TASK_ID_ = #{taskId}
+  </select>
+
+  <select id="selectByProcessId" resultType="com.clockbone.model.TblBusinessApply" parameterType="java.lang.String">
+    SELECT  id,process_id as processId,bus_status as busStatus,
+    process_name as processName,
+    business_id as businessId
+    FROM TBL_BUSINESS_APPLY WHERE PROCESS_ID=#{processId}
   </select>
 
 </mapper>

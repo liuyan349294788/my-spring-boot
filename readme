@@ -83,3 +83,5 @@ closeEditor: function(services) {
     window.location.href = "/models/modelist";
 },
 
+13、集成Diagram Viewer跟踪流程图,生成审批流跟踪流程图
+http://localhost:8080/static/diagram-viewer/index.html?processDefinitionId=leave:1:42512&processInstanceId=50001

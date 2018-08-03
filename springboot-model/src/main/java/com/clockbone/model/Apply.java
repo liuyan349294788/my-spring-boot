@@ -13,4 +13,7 @@ public class Apply {
     private String busStatus;
     private Date createTime;
     private Date updateTime;
+
+    //审批流类型
+    private String businessKey;
 }

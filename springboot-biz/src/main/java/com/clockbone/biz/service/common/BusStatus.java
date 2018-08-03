@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum BusStatus {
 
-    WAIT("WATI", "等待审核"),
+    WAIT("WAIT", "等待审核"),
     DONE("DONE", "完成"),
     REJECT("REJECT", "拒绝");
     private String key;

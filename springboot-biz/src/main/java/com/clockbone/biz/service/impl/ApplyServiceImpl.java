@@ -22,10 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -141,5 +138,55 @@ public class ApplyServiceImpl implements ApplyService {
             resList.add(tblBusinessApplyRes);
         });
         return resList;
+    }
+
+    @Override
+    @Transactional
+    public void doProcess(String taskId,String message) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if(task == null){
+            log.info("process already over");
+            return;
+        }
+        //查找到流程id, 从业务表查到流程的状态，如果不是待审，那么说明已经审批过，就不能再审批
+        String processId = task.getProcessInstanceId();
+        TblBusinessApply tblBusinessApply = tblBusinessApplyMapper.selectByProcessId(processId);
+        if(tblBusinessApply == null){
+            log.info("process already del");
+            return;
+        }
+        if(!Objects.equals(tblBusinessApply.getBusStatus(),BusStatus.WAIT.getKey())){
+            log.info("process already checked");
+            return;
+        }
+        Map<String, Object> variables = new HashMap<>();
+        if(Objects.equals(message,"1")){
+            variables.put("message","同意");
+        }else{
+            variables.put("message","不同意");
+        }
+        Long userId = 0L;
+        variables.put("userId",userId);
+        variables.put("userName",userId+"姓名");
+        // 设置流程审批人
+        identityService.setAuthenticatedUserId(String.valueOf(userId));
+        taskService.complete(taskId, variables);
+        ProcessInstance pi = runtimeService.createProcessInstanceQuery()//
+                .processInstanceId(task.getProcessInstanceId())//使用流程实例ID查询
+                .singleResult();
+        //流程结束了
+        if (pi == null) {
+            TblBusinessApply tblBusinessApply1 = new TblBusinessApply();
+            tblBusinessApply1.setId(tblBusinessApply.getId());
+            if(Objects.equals(message,"1")){
+                tblBusinessApply1.setBusStatus(BusStatus.DONE.getKey());
+            }else{
+                tblBusinessApply1.setBusStatus(BusStatus.REJECT.getKey());
+            }
+            tblBusinessApply1.setUpdateTime(new Date());
+            tblBusinessApplyMapper.updateByPrimaryKeySelective(tblBusinessApply1);
+            log.info("processInstanceId:{} 流程结束了", processId);
+        }
+
     }
 }
