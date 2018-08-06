@@ -2,6 +2,7 @@ package com.clockbone.web.controller;
 
 import com.clockbone.biz.service.ActivitiService;
 import com.clockbone.biz.service.ApplyService;
+import com.clockbone.biz.service.common.BusinessKey;
 import com.clockbone.model.Apply;
 import com.clockbone.model.DoProcess;
 import com.clockbone.model.TblBusinessApply;
@@ -83,7 +84,16 @@ public class ActivitiController {
     @PostMapping("apply")
     @ResponseBody
     public Response apply(HttpServletRequest request,Model model,Apply apply){
-        applyService.apply(apply);
+        if(Objects.equals(apply.getName(),"0")){
+            apply.setBusinessKey(BusinessKey.LEAVE.getKey());
+        }else{
+            apply.setBusinessKey(BusinessKey.APPLY.getKey());
+        }
+        try{
+            applyService.apply(apply);
+        }catch (Exception e){
+            return new Response("500","失败");
+        }
         return new Response(apply);
 
     }

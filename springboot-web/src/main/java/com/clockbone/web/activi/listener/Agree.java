@@ -22,13 +22,11 @@ public class Agree implements JavaDelegate{
         Long userId = (Long) execution.getVariable("applyUserId");
         String userName = (String) execution.getVariable("applyUserName");
         String processInstanceId = execution.getProcessInstanceId();
-        log.info("objectId:{},applyUserId:{},applyUserName:{}",objId,userId,userName);
+        log.info("processInstanceId:{},同意 objectId:{}",processInstanceId,objId);
         if (Objects.equals(key, BusinessKey.LEAVE.getKey())) {
             //ApplyService ApplyService = (ApplyService) SpringUtil.getBean("ApplyService");
             //ApplyService.greee(businessId, processInstanceId, auditId, auditName);
         }
-        log.info("key:{} businessId:{}  审批人:[{}:{}] 审批拒绝.....",
-                key, businessId, userId, userName);
 
     }
 }

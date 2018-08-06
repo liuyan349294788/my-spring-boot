@@ -9,7 +9,11 @@
          data-whatever="@申请">我的发起</a>
 <a type="button" class="btn btn-primary"
         data-whatever="@取消">我的待办</a>
-<a href="/models/modelist">建立流程图</a>
+<a type="button" class="btn btn-primary leave-btn" target="_blank"
+   data-whatever="@取消">发起leave</a>
+<a type="button" class="btn btn-primary apply-btn" target="_blank"
+   data-whatever="@取消">发起apply</a>
+<a href="/models/modelist" target="_blank">建立流程图</a>
 
 <table class="table">
     <thead>
@@ -26,7 +30,7 @@
     <tr th:each="each:${list}">
         <th scope="row" >
             <span th:if="${each.busStatus=='WAIT'}" class="agree" th:attr="taskId=${each.taskId}">同意</span>
-            <span th:if="${each.busStatus=='WAIT'}">拒绝</span><span></span>
+            <span th:if="${each.busStatus=='WAIT'}" class="reject" th:attr="taskId=${each.taskId}">拒绝</span><span></span>
         </th>
         <th scope="row" th:text="${each.processId}"></th>
         <td th:text="${each.processName}">Mark</td>
@@ -45,6 +49,17 @@
 <script src="/static/js/jquery-ui-1.9.2.min.js"></script>
 <script>
     $(function () {
+        $(".leave-btn").on("click",function () {
+            alert("发起leave申请")
+            $.post('/activiti/apply', {"name":"0"}, function (result) {
+                if (result.code === 200) {
+                    alert("申请成功")
+                    window.location.reload();
+                } else {
+                    Ewin.alert("申请失败");
+                }
+            }, 'json');
+        })
         $(".agree").on("click",function(){
             alert("agree")
             var data={};
@@ -54,6 +69,22 @@
             $.post('/activiti/doprocess', data, function (result) {
                 if (result.code === 200) {
                     alert("审批通过")
+                    window.location.reload();
+                } else {
+                    Ewin.alert(result.message);
+                }
+            }, 'json');
+
+        })
+        $(".reject").on("click",function(){
+            alert("reject")
+            var data={};
+            data.taskId=$(this).attr("taskId")
+            data.message=2
+            console.log(data)
+            $.post('/activiti/doprocess', data, function (result) {
+                if (result.code === 200) {
+                    alert("审批拒绝")
                     window.location.reload();
                 } else {
                     Ewin.alert(result.message);

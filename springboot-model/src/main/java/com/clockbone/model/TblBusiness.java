@@ -16,5 +16,7 @@ public class TblBusiness implements Serializable {
     private Long userId;
     private String reason;
 
+    private String type;
+
 
 }

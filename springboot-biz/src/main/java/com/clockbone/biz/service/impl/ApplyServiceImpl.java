@@ -53,10 +53,11 @@ public class ApplyServiceImpl implements ApplyService {
         Long userId = 0L;
         //先创建一条业务数据
         TblBusiness tblBusiness = new TblBusiness();
+        tblBusiness.setType(apply.getBusinessKey());
         tblBusinessMapper.insert(tblBusiness);
 
         //启动流程
-        String key = BusinessKey.LEAVE.getKey();
+        String key = apply.getBusinessKey();
         Map<String,Object> variables = new HashMap<>();
         variables.put("applyUserId",userId);
         variables.put("applyUserName",userId+"姓名");
@@ -164,7 +165,7 @@ public class ApplyServiceImpl implements ApplyService {
         if(Objects.equals(message,"1")){
             variables.put("message","同意");
         }else{
-            variables.put("message","不同意");
+            variables.put("message","拒绝");
         }
         Long userId = 0L;
         variables.put("userId",userId);
