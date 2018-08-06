@@ -19,9 +19,10 @@ public class Agree implements JavaDelegate{
         String[] split = StringUtils.split(objId, "\\.");
         String key = split[0];
         Long businessId = Long.valueOf(split[1]);
-        Long userId = (Long) execution.getVariable("userId");
-        String userName = (String) execution.getVariable("userName");
+        Long userId = (Long) execution.getVariable("applyUserId");
+        String userName = (String) execution.getVariable("applyUserName");
         String processInstanceId = execution.getProcessInstanceId();
+        log.info("objectId:{},applyUserId:{},applyUserName:{}",objId,userId,userName);
         if (Objects.equals(key, BusinessKey.LEAVE.getKey())) {
             //ApplyService ApplyService = (ApplyService) SpringUtil.getBean("ApplyService");
             //ApplyService.greee(businessId, processInstanceId, auditId, auditName);

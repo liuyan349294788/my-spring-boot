@@ -59,6 +59,7 @@ public class ApplyServiceImpl implements ApplyService {
         String key = BusinessKey.LEAVE.getKey();
         Map<String,Object> variables = new HashMap<>();
         variables.put("applyUserId",userId);
+        variables.put("applyUserName",userId+"姓名");
         String objId = key + "." + tblBusiness.getId();
         variables.put("objId",objId);
         // 设置流程启动人
