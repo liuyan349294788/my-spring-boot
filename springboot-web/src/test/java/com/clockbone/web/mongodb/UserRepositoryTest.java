@@ -4,9 +4,13 @@ package com.clockbone.web.mongodb;
 import com.clockbone.entity.UserInfo;
 import com.clockbone.mongodb.UserRepository;
 import com.clockbone.web.AbstratApplicationBaseBootTest;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
+@Slf4j
 public class UserRepositoryTest extends AbstratApplicationBaseBootTest{
 
     @Autowired
@@ -27,5 +31,14 @@ public class UserRepositoryTest extends AbstratApplicationBaseBootTest{
         userInfo.setPost("090000");
         userRepository.save(userInfo);
 
+    }
+
+    @Test
+    public void selectTest(){
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId("123");
+        userInfo.setUserName("王五");
+        List<UserInfo> list = userRepository.selectByParameter(userInfo);
+        log.info("list:{}",list);
     }
 }

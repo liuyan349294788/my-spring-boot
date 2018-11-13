@@ -27,7 +27,8 @@ public class UserRepository {
                 .where("userId").is(userInfo.getUserId())
                 .and("userName").is(userInfo.getUserName())
                 ;
-        Query query = new Query(criteria).with(new Sort(Sort.Direction.DESC, "createTime"));
+        Query query = new Query(criteria).
+                with(new Sort(Sort.Direction.DESC, "createTime")).limit(1);
         return mongoTemplate.find(query, UserInfo.class);
 
     }
