@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAut
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.ServletContextResource;
@@ -43,6 +44,7 @@ import java.util.Map;
 //// same as @Configuration @EnableAutoConfiguration @ComponentScan
 //@MapperScan("com.clockbone.dao")
 //@EnableGlobalMethodSecurity(securedEnabled = false)
+@EnableMongoRepositories("com.clockbone.mongodb")
 public class ApplicationBoot {
 
     public static void main(String[] args) throws Exception {
