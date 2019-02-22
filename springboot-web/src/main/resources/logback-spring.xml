@@ -33,7 +33,7 @@
     </appender>
     <logger name="com.clockbone.dao" level="DEBUG" />
     <logger name="com.clockbone.web" level="DEBUG" />
-    <logger name="org.springframework.boot.autoconfigure" level="DEBUG"/>
+    <!--<logger name="org.springframework.boot.autoconfigure" level="DEBUG"/>-->
     <root level="info">
         <appender-ref ref="consoleLog"/>
         <appender-ref ref="fileInfoLog"/>

@@ -2,8 +2,8 @@ package com.clockbone.biz.service.impl;
 
 import com.clockbone.biz.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+//import org.springframework.data.redis.core.StringRedisTemplate;
+//import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class RedisServiceImpl implements RedisService{
 
     //@Autowired
-    private StringRedisTemplate template;
+    //private StringRedisTemplate template;
     @Override
     public int set(String key, Long expireTime, Boolean isPresent) {
         return 0;

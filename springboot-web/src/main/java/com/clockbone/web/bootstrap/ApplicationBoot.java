@@ -6,6 +6,11 @@ import com.github.pagehelper.autoconfigure.PageHelperAutoConfiguration;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;*/
 import org.activiti.spring.boot.SecurityAutoConfiguration;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -13,6 +18,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAut
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Component;
@@ -23,6 +30,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.resource.*;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -45,11 +54,16 @@ import java.util.Map;
 //@MapperScan("com.clockbone.dao")
 //@EnableGlobalMethodSecurity(securedEnabled = false)
 @EnableMongoRepositories("com.clockbone.mongodb")
+@EnableElasticsearchRepositories("com.clockbone.esrepository")
 public class ApplicationBoot {
 
     public static void main(String[] args) throws Exception {
+
+        // 设置环境变量，解决Es的netty与Netty服务本身不兼容问题
+        System.setProperty("es.set.netty.runtime.available.processors", "false");
         SpringApplication.run(ApplicationBoot.class, args);
     }
+
 
     /*@Bean
     public SimpleUrlHandlerMapping simpleUrlHandlerMapping() {

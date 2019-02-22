@@ -87,3 +87,11 @@ closeEditor: function(services) {
 http://localhost:8080/static/diagram-viewer/index.html?processDefinitionId=leave:1:42512&processInstanceId=50001
 
 14、集成mongodb
+UserRepositoryTest 测试类，一些基本用法
+
+15、集成ES
+
+
+
+
+
