@@ -1,0 +1,115 @@
+PUT acticle
+{
+  "mappings": {
+    "acticle_record":{
+      "properties":{
+        "id":{
+          "type":"long"
+        },
+        "category":{
+          "type":"text"
+        },
+        "range":{
+          "type":"text"
+        },
+        "mode":{
+          "type":"text"
+        },
+        "start_time":{
+          "type":"date",
+           "format": "yyyy-MM-dd HH:mm:ss"
+        },
+        "end_time":{
+          "type":"date",
+          "format": "yyyy-MM-dd HH:mm:ss"
+        },
+        "title":{
+          "type":"text",
+          "analyzer": "ik_smart"
+        },
+        "content":{
+          "type":"text",
+          "analyzer": "ik_smart"
+        }
+      }
+    }
+  }
+}
+
+
+
+POST /acticle/acticle_record
+{
+  "id":6,
+  "category":"test",
+  "mode":"INSTANT",
+  "start_time":"2018-12-19 11:58:48",
+  "end_time":"2018-12-20 10:58:48",
+  "title":"开票信息汇总",
+  "content":""
+}
+
+POST /acticle/acticle_record
+{
+  "id":8,
+  "category":"CWZD",
+  "mode":"INSTANT",
+  "start_time":"2018-12-19 11:58:48",
+  "end_time":"2018-12-20 10:58:48",
+  "title":"费用报销管理制度（试行）",
+  "content":""
+}
+
+
+GET acticle/_search
+{
+  "query":{
+    "match": {
+      "title": "开票信息"
+    }
+  }
+}
+
+
+GET /acticle,acticle1_test/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match":
+          {
+            "title":"开票信息汇总"
+          }
+        },
+        {
+          "match": {
+            "name": "开票信息汇总"
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+GET /account,acticle1_test/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match":
+          {
+            "title":"张三"
+          }
+        },
+        {
+          "match": {
+            "name": "张三"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -3,6 +3,8 @@ package com.clockbone.web.esTest;
 import com.clockbone.esentity.User;
 import com.clockbone.esrepository.UserRepository;
 import com.clockbone.web.AbstratApplicationBaseBootTest;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.Test;
@@ -12,10 +14,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 
+import java.io.IOException;
+
 public class userRepositoryTest extends AbstratApplicationBaseBootTest{
 
     @Autowired
     private UserRepository userRepository;
+
+
+
 
     @Test
     public void insertTest(){
@@ -28,6 +35,8 @@ public class userRepositoryTest extends AbstratApplicationBaseBootTest{
         userRepository.save(user31);
         userRepository.save(user32);
         userRepository.save(user33);
+
+
     }
     @Test
     public void queryTest(){
